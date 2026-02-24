@@ -1,4 +1,4 @@
-import Card from "./card";
+import Card from "./Card";
 import { useState, useEffect } from "react";
 import { getPokemonData } from "../services/api";
 import '../css/CardGrid.css';
