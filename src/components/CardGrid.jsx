@@ -1,62 +1,87 @@
 import Card from "./card";
 import { useState, useEffect } from "react";
+import { getPokemonData } from "../services/api";
 import '../css/CardGrid.css';
 
 const cardsArray = [
-    {
-      id: 48,
-      name: 'venonat',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/48.png'
-    },
-    {
-      id: 23,
-      name: 'ekans',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/23.png'
-    },
-    {
-      id: 460,
-      name: 'abomasnow',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/460.png'
-    },
-    {
-      id: 758,
-      name: 'salazzle',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/758.png'
-    },
-    {
-      id: 62,
-      name: 'poliwrath',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/62.png'
-    },
-    {
-      id: 385,
-      name: 'jirachi',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/385.png'
-    },
-    {
-      id: 423,
-      name: 'gastrodon',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/423.png'
-    },
-    {
-      id: 614,
-      name: 'beartic',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/614.png'
-    },
-    {
-      id: 295,
-      name: 'exploud',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/295.png'
-    },
-    {
-      id: 611,
-      name: 'fraxure',
-      spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/611.png'
-    }
-  ]
+  {
+    id: 488,
+    name: 'cresselia',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/488.png'
+  },
+  {
+    id: 793,
+    name: 'nihilego',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/793.png'
+  },
+  {
+    id: 88,
+    name: 'grimer',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/88.png'
+  },
+  {
+    id: 660,
+    name: 'diggersby',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/660.png'
+  },
+  {
+    id: 988,
+    name: 'slither-wing',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/988.png'
+  },
+  {
+    id: 472,
+    name: 'gliscor',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/472.png'
+  },
+  {
+    id: 415,
+    name: 'combee',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/415.png'
+  },
+  {
+    id: 970,
+    name: 'glimmora',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/970.png'
+  },
+  {
+    id: 173,
+    name: 'cleffa',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/173.png'
+  },
+  {
+    id: 440,
+    name: 'happiny',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/440.png'
+  },
+  {
+    id: 282,
+    name: 'gardevoir',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/282.png'
+  },
+  {
+    id: 62,
+    name: 'poliwrath',
+    spriteUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/62.png'
+  }
+];
 
-function CardGrid() {
-  const [cards, setCards] = useState(cardsArray);
+function CardGrid({ currentScore, bestScore, setCurrentScore, setBestScore }) {
+  const [cards, setCards] = useState([]);
+  const [clicked, setClicked] = useState([]);
+
+  useEffect(() => {
+    const loadPokemonData = async () => {
+      try {
+        const pokemon = await getPokemonData();
+        setCards(pokemon);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+
+    loadPokemonData();
+  },[]);
 
   function shuffleCards() {
     setCards((cards) => {
@@ -72,10 +97,25 @@ function CardGrid() {
     });
   };
 
+  function cardClick(id) {
+    if (!clicked.includes(id)) {
+      setClicked([...clicked, id]);
+      setCurrentScore(currentScore + 1);
+    } else {
+      setClicked([]);
+      if (currentScore > bestScore) {
+        setBestScore(currentScore);
+      }
+      setCurrentScore(0);
+      alert("Game over!");
+    }
+    shuffleCards();
+  };
+
   return (
       <div className="card-grid">
           {cards.map((card) => (
-              <Card card={card} key={card.id} onclick={shuffleCards}/>
+              <Card card={card} key={card.id} onclick={() => cardClick(card.id)}/>
           ))}
       </div>
   );

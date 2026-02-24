@@ -8,8 +8,8 @@ function capitalize(name) {
 function Card({ card, onclick }) {
     return (
         <div className="card" onClick={onclick}>
-            {/* <img src={card.spriteUrl} alt={`${card.id} - ${card.name}`} /> */}
-            <img src={emptyImg} alt={`${card.id} - ${capitalize(card.name)}`} />
+            <img src={card.spriteUrl} alt={`${card.id} - ${card.name}`} />
+            {/* <img src={emptyImg} alt={`${card.id} - ${capitalize(card.name)}`} /> */}
             <h2>{capitalize(card.name)}</h2>
         </div>
     );
