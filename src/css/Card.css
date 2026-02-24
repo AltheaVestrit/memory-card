@@ -1,0 +1,32 @@
+.card {
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+    background-color: rgb(86, 87, 97);
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    background-color: rgb(203, 203, 224);
+}
+
+@media (prefers-color-scheme: light) {
+    .card {
+        background-color: white;
+    }
+
+    .card img {
+        background-color: rgb(57, 57, 80);
+    }
+  }

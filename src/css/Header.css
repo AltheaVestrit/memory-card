@@ -1,0 +1,16 @@
+.header h1 {
+    margin-block-end: 0;
+}
+
+.header > p {
+    font-style: italic;
+}
+
+.scores {
+    font-weight: 700;
+}
+
+.score {
+    font-weight: 400;
+}
+
