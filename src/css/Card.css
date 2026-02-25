@@ -1,5 +1,5 @@
 .card {
-    max-width: 240px;
+    max-width: calc(100vw / 6);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -20,6 +20,12 @@
     height: auto;
     background-color: rgb(203, 203, 224);
 }
+
+.card h2 {
+    font-size: 2cqw;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
 
 @media (prefers-color-scheme: light) {
     .card {
