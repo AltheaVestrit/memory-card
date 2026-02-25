@@ -1,5 +1,5 @@
 const BASE_URL = "https://pokeapi.co/api/v2/";
-const NR_OF_POKEMON = 12;
+const NR_OF_POKEMON = 15;
 
 let idArray = [];
 
